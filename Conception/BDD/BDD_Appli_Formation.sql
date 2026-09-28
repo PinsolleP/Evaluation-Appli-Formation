@@ -55,3 +55,41 @@ CREATE TABLE order_line(
    FOREIGN KEY(id_order) REFERENCES order_(id_order)
 );
 
+INSERT INTO person (id_person, first_name, last_name)
+VALUES
+(1, 'Didier', 'Lacaze'),
+(2, 'Francoise', 'Poiret'),
+(3, 'Tristan', 'Laclau'),
+(4, 'Samuel', 'Curran'),
+(5, 'Philippe', 'Rizzoli'),
+(6, 'Pierre', 'Fabre'),
+(7, 'Emmanuel', 'Chain'),
+(8, 'Camille', 'Lelouche'),
+(9, 'Pascal', 'obispo'),
+(10, 'Christine', 'Bravo'),
+(11, 'Boris', 'Vasseur'),
+(12, 'Louise', 'Lamarque'),
+(13, 'Ananda', 'Leer'),
+(14, 'Sonia', 'Chevalier'),
+(15, 'Anne', 'Icordi');
+
+INSERT INTO client (id_client, email, address, tel_number, id_person)
+VALUES
+(1, 'didier.lacaze@free.com', '1 rue de la route 40250 Dax', 0685321478, 1),
+(2, 'francoise.poiret@orange.fr', '12 rue de france 41456 Palmier', 0641183897, 2),
+(3, 'tristan.laclau@gmail.com', '356 avenue de Hardy 40100 Azur', 0645853201, 3),
+(4, 'samuel.chain@m6.fr', '12 rue des champs elysee 75000 Paris', 0663966396, 4),
+(5, 'philippe.rizzoli@tf1.com', '24 rue du juste prix 64500 Anglet', 0614789632, 5),
+(6, 'pierre.favre@co.fr', 'résidence castraise 84520 castres', 0602030405, 6),
+(7, 'camille.lelouche@yahoo.com', '64 avenue du rire 31200 Toulouse', 0674757677, 8),
+(8, 'emmanuel.chain@tele.com', '1 route du monosourcil 47200 Marmande', 0668646266, 7),
+(9, 'pascal.obispo@micro.fr', '488 impasse du cheveu 56900 Troyes', 0681828384, 9),
+(10, 'christine.bravo@ gmail.com', '12 impasse des bois 49250 Aix', 0633399852, 10),
+(11, 'boris.vasseur@orange.com', '14 rue du chateau d''eau 40140 Soustons', 0655572200, 11),
+(12, 'louise.lamarque@hotmail.com', 'chemin de saint Pierre 40230 Tyrosse', 0644771110, 12);
+
+INSERT INTO user_ (id_user, login, password, id_person)
+VALUES
+(1, 'amanda55','fezaazuia25!', 13),
+(1, 'soniache77', 'juihzagfuyzgu25!', 14),
+(1, 'anniecord66', 'ezgfezaze66!', 15);
