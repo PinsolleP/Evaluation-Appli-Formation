@@ -1,0 +1,36 @@
+Spécifications fonctionnelles — Application_formation
+1. Objet
+L'application permet à un utilisateur de gérer la vente de formations pour un ou plusieurs clients. Elle est utilisée depuis une interface en ligne de commande et persiste les données dans une base MySQL/MariaDB.
+
+2. Acteurs
+Acteur	Description
+Utilisateur : Personnes non authentifiée pouvant créer son compte. Personnes authentifiée pouvant gérer une ou plusieurs commandes. 
+              
+3. Données métier
+Personne : prénom, nom.
+Utilisateur : personne possédant un login , un mot de passe.
+Client : personne possédant un email, une adresse, un numéro de téléphone
+Commande : représente une commande passée par l'utilisateur pour un client et regroupant les lignes de commandes.
+Ligne_commande : représente une ligne de commande pour une formation choisie 
+Formation : possédant un nom, une description, une durée, un type et un prix
+
+4. Cas d'utilisation et critères d'acceptation
+UC01 — Consulter les formations
+L'utilisateur demande la liste des formations. Le système affiche au minimum le nom , la description et le prix.
+
+UC02 — S'authentifier
+Précondition : l'utilisateur existe dans la base.
+
+L'utilisateur saisit son login et son mot de passe.
+Le système vérifie les informations.
+Le Système comfirme l'inscription.
+En cas d'informations incorrectes ou de base inaccessible, aucun menu protégé ne doit être affiché.
+
+UC03 — Voter en tant que membre
+Précondition : l'utilisateur est authentifié comme membre.
+Le système affiche les livres et leur identifiant. Le membre sélectionne le nombre de livres imposé pour le tour. Chaque identifiant doit exister, un même livre ne peut être choisi deux fois et le nombre attendu doit être respecté.
+
+UC04 — Passer une commande
+Précondition : l'utilisateur est authentifié .
+L'utilisateur saisit la formation et la quantité voulue. Le système refuse les valeurs non entières ou négatives. Affiche la commande finale et le prix.
+
