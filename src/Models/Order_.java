@@ -46,6 +46,18 @@ public class Order_ {
         this.date = date;
     }
 
+    public Formation getFormation() {
+        return formation;
+    }
+
+    public void setFormation(Formation formation) {
+        this.formation = formation;
+    }
+
+    public ArrayList<Formation> getItems() {
+        return new ArrayList<>(items);
+    }
+
     public double getTotal_order(int quantity){
         double total = 0;
         for (Formation item : items){
