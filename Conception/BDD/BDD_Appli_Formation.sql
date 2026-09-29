@@ -86,8 +86,8 @@ VALUES
 INSERT INTO user_ (id_user, login, password, id_person)
 VALUES
 (1, 'amanda55','fezaazuia25!', 13),
-(1, 'soniache77', 'juihzagfuyzgu25!', 14),
-(1, 'anniecord66', 'ezgfezaze66!', 15);
+(2, 'soniache77', 'juihzagfuyzgu25!', 14),
+(3, 'anniecord66', 'ezgfezaze66!', 15);
 
 INSERT INTO formation (id_formation, name, description, duration, type, price)
 VALUES
