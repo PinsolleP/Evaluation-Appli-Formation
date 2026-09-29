@@ -93,3 +93,16 @@ VALUES
 (1, 'amanda55','fezaazuia25!', 13),
 (1, 'soniache77', 'juihzagfuyzgu25!', 14),
 (1, 'anniecord66', 'ezgfezaze66!', 15);
+
+INSERT INTO formation (id_formation, name, description, duration, type, price)
+VALUES
+(1, 'Java', 'Java SE 8 : Syntaxe & Poo', 25, 'presentiel', 302.00),
+(2, 'Java avancé', 'Exceptions, fichiers, Jdbc, thread...', 40, 'distanciel', 255.00),
+(3, 'Spring', 'Spring Core/Mvc/Security', 18, 'presentiel', 180.00),
+(4, 'Php frameworks', 'Symphony', 15, 'distanciel', 205.00),
+(5, 'C#', 'DotNet Core', 28, 'presentiel', 175.00),
+(6, 'Base de données', 'Requête, gestion comptes utilisateurs', 12, 'distanciel', 140.00),
+(7, 'Algoritmie', 'logique, boucle...', 14, 'presentiel', 150.00),
+(8, 'Gestion de projet', 'organisation, livrables et contrôle', 14, 'distanciel', 95.00),
+(9, 'Python', 'Poo & Python avancé ', 8, 'presentiel', 125.00),
+(10, 'Développeur Web', 'maquetter et réaliser interfaces utilisateur', 20, 'distanciel', 275.00);
