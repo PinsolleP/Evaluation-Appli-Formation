@@ -28,6 +28,17 @@ public class Client extends Person{
     }
 
     public void setEmail(String email) {
+
+        if ( email == null){
+            throw new IllegalArgumentException("Le mail ne peut pas être null.");
+        }
+
+        String regexPattern = "^(.+)@(\\S+)$";
+
+        if (!email.matches(regexPattern)){
+            throw new IllegalArgumentException(("Le mail saisi est invalide"));
+        }
+
         this.email = email;
     }
 
