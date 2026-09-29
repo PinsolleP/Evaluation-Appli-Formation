@@ -68,4 +68,59 @@ public class PersonDao {
         }
         return null;
     }
+    /**
+     * Récupère toutes les personnes dans la base de données.
+     * @return liste contenant toutes les personnes
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public List<Person> findAll() throws SQLException{
+
+        String sql = """
+                SELECT id_person, first_name, last_name
+                FROM person
+                """;
+
+        List<Person> persons = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()){
+
+            while (resultSet.next()){
+
+                Person person = new Person(
+                        resultSet.getInt("id_person"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name")
+                );
+
+                persons.add(person);
+            }
+        }
+        return persons;
+    }
+    /**
+     * Modifie une personne existant dans la base de données.
+     * @param person personne contenant les nouvelles informations
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void update(Person person) throws SQLException{
+
+        String sql = """
+                UPDATE person
+                SET first_name = ?, last_name = ?
+                WHERE id_person = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setString(1, person.getFirst_name());
+            statement.setString(2, person.getLast_name());
+            statement.setInt(4, person.getId_person());
+
+            statement.executeUpdate();
+        }
+    }
+
 }
