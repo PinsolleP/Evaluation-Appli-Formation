@@ -1,5 +1,6 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Order_ {
@@ -10,6 +11,7 @@ public class Order_ {
     private Formation formation;
     private Client client;
     private User_ user;
+    public ArrayList<Formation> items;
 
     public Order_(int id_order, int quantity, Date date, Formation formation, Client client, User_ user) {
         this.id_order = id_order;
@@ -42,5 +44,13 @@ public class Order_ {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public double getTotal_order(int quantity){
+        double total = 0;
+        for (Formation item : items){
+            total = item.getPrice() * quantity;
+        }
+        return total;
     }
 }
