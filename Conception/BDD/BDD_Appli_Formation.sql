@@ -38,22 +38,17 @@ CREATE TABLE Client(
 
 CREATE TABLE order_(
    id_order INT,
+   quantity INT NOT NULL,
+   date_ DATE,
+   id_formation INT NOT NULL,
    id_client INT NOT NULL,
    id_user INT NOT NULL,
    PRIMARY KEY(id_order),
+   FOREIGN KEY(id_formation) REFERENCES Formation(id_formation),
    FOREIGN KEY(id_client) REFERENCES Client(id_client),
    FOREIGN KEY(id_user) REFERENCES User_(id_user)
 );
 
-CREATE TABLE order_line(
-   id_line INT,
-   quantity_formation INT NOT NULL,
-   id_formation INT NOT NULL,
-   id_order INT NOT NULL,
-   PRIMARY KEY(id_line),
-   FOREIGN KEY(id_formation) REFERENCES Formation(id_formation),
-   FOREIGN KEY(id_order) REFERENCES order_(id_order)
-);
 
 INSERT INTO person (id_person, first_name, last_name)
 VALUES
