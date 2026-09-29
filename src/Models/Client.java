@@ -1,12 +1,19 @@
 package Models;
-
+/**
+ * Classe Représentant un client
+ * hérite de la classe Person
+ */
 public class Client extends Person{
-
+    /**
+     * attributs
+     */
     private int id_client;
     private String email;
     private String address;
     private String tel_number;
-
+    /**
+     * Constructeur
+     */
     public Client(int id_person, String first_name, String last_name, int id_client, String email, String address, String tel_number) {
         super(id_person, first_name, last_name);
         this.id_client = id_client;
@@ -14,7 +21,9 @@ public class Client extends Person{
         this.address = address;
         this.tel_number = tel_number;
     }
-
+    /**
+     * Getter et setter
+     */
     public int getId_client() {
         return id_client;
     }
