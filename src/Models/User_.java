@@ -1,18 +1,27 @@
 package Models;
-
+/**
+ * Classe Représentant un utilisateur
+ * hérite de la classe Person
+ */
 public class User_ extends Person{
-
+    /**
+     * attributs
+     */
     private int id_user;
     private String login;
     private String password;
-
+    /**
+     * Constructeur
+     */
     public User_(int id_person, String first_name, String last_name, int id_user, String login, String password) {
         super(id_person, first_name, last_name);
         this.id_user = id_user;
         this.login = login;
         this.password = password;
     }
-
+    /**
+     * Getter et setter
+     */
     public int getId_user() {
         return id_user;
     }
