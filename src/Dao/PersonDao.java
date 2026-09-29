@@ -71,12 +71,14 @@ public class PersonDao {
         }
         return null;
     }
+
     /**
      * Récupère toutes les personnes dans la base de données.
+     *
      * @return liste contenant toutes les personnes
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public List<Person> findAll() throws SQLException{
+    public List<Person> findAll() throws SQLException {
 
         String sql = """
                 SELECT id_person, first_name, last_name
@@ -87,9 +89,9 @@ public class PersonDao {
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()){
+             ResultSet resultSet = statement.executeQuery()) {
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
                 Person person = new Person(
                         resultSet.getInt("id_person"),
@@ -102,12 +104,14 @@ public class PersonDao {
         }
         return persons;
     }
+
     /**
      * Modifie une personne existant dans la base de données.
+     *
      * @param person personne contenant les nouvelles informations
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public void update(Person person) throws SQLException{
+    public void update(Person person) throws SQLException {
 
         String sql = """
                 UPDATE person
@@ -116,7 +120,7 @@ public class PersonDao {
                 """;
 
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)){
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, person.getFirst_name());
             statement.setString(2, person.getLast_name());
@@ -126,4 +130,25 @@ public class PersonDao {
         }
     }
 
+    /**
+     * Supprime une personne de la base de données.
+     *
+     * @param id identifiant de la personne à supprimer
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void delete(int id) throws SQLException {
+
+        String sql = """
+                DELETE FROM person
+                WHERE id_person = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        }
+    }
 }
