@@ -55,14 +55,6 @@ public class Order_ {
         this.formation = formation;
     }
 
-    public ArrayList<Formation> getItems() {
-        return new ArrayList<>(items);
-    }
-
-    public ArrayList<Client> getClients() {
-        return new ArrayList<>(clients);
-    }
-
     public double getTotal_order(int quantity){
         double total = 0;
         for (Formation item : items){
