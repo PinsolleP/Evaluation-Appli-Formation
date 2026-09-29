@@ -2,9 +2,13 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * Classe Représentant une commande
+ */
 public class Order_ {
-
+    /**
+     * attributs
+     */
     private int id_order;
     private int quantity;
     private Date date;
@@ -13,7 +17,9 @@ public class Order_ {
     private User_ user;
     public ArrayList<Formation> items;
     public ArrayList<Client> clients;
-
+    /**
+     * Constructeur
+     */
     public Order_(int id_order, int quantity, Date date, Formation formation, Client client, User_ user) {
         this.id_order = id_order;
         this.quantity = quantity;
@@ -22,7 +28,9 @@ public class Order_ {
         this.client = client;
         this.user = user;
     }
-
+    /**
+     * Getter et setter
+     */
     public int getId_order() {
         return id_order;
     }
@@ -54,7 +62,9 @@ public class Order_ {
     public void setFormation(Formation formation) {
         this.formation = formation;
     }
-
+    /**
+     * Méthode calul du total pour une commande passée de (quantity) formations
+     */
     public double getTotal_order(int quantity){
         double total = 0;
         for (Formation item : items){
