@@ -12,6 +12,7 @@ public class Order_ {
     private Client client;
     private User_ user;
     public ArrayList<Formation> items;
+    public ArrayList<Client> clients;
 
     public Order_(int id_order, int quantity, Date date, Formation formation, Client client, User_ user) {
         this.id_order = id_order;
@@ -56,6 +57,10 @@ public class Order_ {
 
     public ArrayList<Formation> getItems() {
         return new ArrayList<>(items);
+    }
+
+    public ArrayList<Client> getClients() {
+        return new ArrayList<>(clients);
     }
 
     public double getTotal_order(int quantity){
