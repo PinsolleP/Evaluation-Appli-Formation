@@ -1,14 +1,20 @@
 package Models;
-
+/**
+ * Classe Représentant les formations en vente
+ */
 public class Formation {
-
+    /**
+     * attributs
+     */
     private int id_formation;
     private String name;
     private String description;
     private int duration;
     private String type;
     private double price;
-
+    /**
+     * Constructeur
+     */
     public Formation(int id_formation, String name, String description, int duration, String type, double price) {
         this.id_formation = id_formation;
         this.name = name;
@@ -17,7 +23,9 @@ public class Formation {
         this.type = type;
         this.price = price;
     }
-
+    /**
+     * Getter et setter
+     */
     public int getId_formation() {
         return id_formation;
     }
