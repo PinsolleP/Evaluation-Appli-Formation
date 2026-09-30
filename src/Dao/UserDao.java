@@ -133,6 +133,37 @@ public class UserDao {
 
             statement.executeUpdate();
         }
+    }
+    /**
+     * Supprime un utilisateur de la base de données.
+     *
+     * @param id identifiant de l'utilisateur à supprimer
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void delete(int id) throws SQLException {
 
+        String sql = """
+                DELETE FROM user_
+                WHERE id_client = ?
+                """;
 
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        }
+        String sql_one = """
+                DELETE FROM person
+                WHERE id_person = ?
+                """;
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(4, id);
+
+            statement.executeUpdate();
+        }
+    }
 }
