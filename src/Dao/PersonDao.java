@@ -16,14 +16,13 @@ import java.util.List;
  * et la table {@code person} de la base de données.</p>
  */
 
-public class PersonDao implements Dao<Person>{
+public class PersonDao{
     /**
      * Crée une nouvelle personne dans la base de données.
      *
      * @param person personne à enregistrer
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    @Override
     public void create(Person person) throws SQLException {
         String sql = """
                 INSERT INTO person(first_name, last_name)
@@ -44,10 +43,9 @@ public class PersonDao implements Dao<Person>{
      * Recherche une personne à partir de son identifiant.
      *
      * @param id identifiant de la personne recherché
-     * @return la personne trouvé, ou {@code null} s'il n'existe pas
+     * @return la personne trouvée, ou {@code null} s'il n'existe pas
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    @Override
     public Person read(int id) throws SQLException {
         String sql = """
                 SELECT id_person, first_name, last_name
@@ -113,7 +111,6 @@ public class PersonDao implements Dao<Person>{
      * @param person personne contenant les nouvelles informations
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    @Override
     public void update(Person person) throws SQLException {
 
         String sql = """
@@ -127,7 +124,8 @@ public class PersonDao implements Dao<Person>{
 
             statement.setString(1, person.getFirst_name());
             statement.setString(2, person.getLast_name());
-            statement.setInt(4, person.getId_person());
+            statement.setInt(3, person.getId_person());
+
 
             statement.executeUpdate();
         }
@@ -138,7 +136,6 @@ public class PersonDao implements Dao<Person>{
      * @param id identifiant de la personne à supprimer
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    @Override
     public void delete(int id) throws SQLException {
 
         String sql = """
