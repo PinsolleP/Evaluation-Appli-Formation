@@ -47,4 +47,41 @@ public class ClientDao {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Recherche un client à partir de son identifiant.
+     *
+     * @param id identifiant du client recherché
+     * @return le client trouvée, ou {@code null} s'il n'existe pas
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public Person read(int id) throws SQLException {
+        String sql = """
+                SELECT id_client, email , address, tel_number, id_person
+                FROM client
+                WHERE id_client = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    return new Client(
+                            resultSet.getInt("id_person"),
+                            resultSet.getString("first_name"),
+                            resultSet.getString("last_name"),
+                            resultSet.getInt("id_client"),
+                            resultSet.getString("email"),
+                            resultSet.getString("address"),
+                            resultSet.getString("tel_number")
+                    );
+                }
+            }
+        }
+        return null;
+    }
 }
