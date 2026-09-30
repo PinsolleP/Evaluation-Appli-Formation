@@ -68,5 +68,25 @@ public class FormationDaoTest {
             e.printStackTrace();
         }
 
+        System.out.println("\n=== TEST UPDATE ===");
+        try {
+            FormationDao formationDao = new FormationDao();
+            Formation formation = formationDao.read(11);
+
+            if (formation != null) {
+
+                formation.setDescription("description modifiée");
+
+                formationDao.update(formation);
+
+                System.out.println("formation modifiée : " + formation);
+
+            } else {
+                System.out.println("formation introuvable.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
