@@ -16,13 +16,14 @@ import java.util.List;
  * et la table {@code person} de la base de données.</p>
  */
 
-public class PersonDao {
+public class PersonDao implements Dao<Person>{
     /**
      * Crée une nouvelle personne dans la base de données.
      *
      * @param person personne à enregistrer
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
+    @Override
     public void create(Person person) throws SQLException {
         String sql = """
                 INSERT INTO person(first_name, last_name)
@@ -46,7 +47,8 @@ public class PersonDao {
      * @return la personne trouvé, ou {@code null} s'il n'existe pas
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public Person findById(int id) throws SQLException {
+    @Override
+    public Person read(int id) throws SQLException {
         String sql = """
                 SELECT id_person, first_name, last_name
                 FROM person
@@ -78,7 +80,7 @@ public class PersonDao {
      * @return liste contenant toutes les personnes
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public List<Person> findAll() throws SQLException {
+    public List<Person> readAll() throws SQLException {
 
         String sql = """
                 SELECT id_person, first_name, last_name
@@ -93,13 +95,13 @@ public class PersonDao {
 
             while (resultSet.next()) {
 
-                Person person = new Person(
+                Person pers = new Person(
                         resultSet.getInt("id_person"),
                         resultSet.getString("first_name"),
                         resultSet.getString("last_name")
                 );
 
-                persons.add(person);
+                persons.add(pers);
             }
         }
         return persons;
@@ -111,6 +113,7 @@ public class PersonDao {
      * @param person personne contenant les nouvelles informations
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
+    @Override
     public void update(Person person) throws SQLException {
 
         String sql = """
@@ -129,13 +132,13 @@ public class PersonDao {
             statement.executeUpdate();
         }
     }
-
     /**
      * Supprime une personne de la base de données.
      *
      * @param id identifiant de la personne à supprimer
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
+    @Override
     public void delete(int id) throws SQLException {
 
         String sql = """
