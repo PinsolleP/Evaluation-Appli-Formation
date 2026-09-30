@@ -1,0 +1,44 @@
+package Test;
+
+import Dao.ClientDao;
+import Dao.PersonDao;
+import Dao.UserDao;
+import Models.Client;
+import Models.User_;
+
+import java.sql.SQLException;
+import java.util.List;
+/**
+ * Classe permettant de tester les opérations CRUD de {@link UserDao}.
+ */
+public class UserDaoTest {
+    /**
+     * Point d'entrée du programme de test.
+     *
+     * @param args arguments de la ligne de commande
+     */
+    public static void main(String[] args) {
+        System.out.println("=== TEST CREATE ===");
+        try {
+            PersonDao personDao = new PersonDao();
+            UserDao userDao = new UserDao();
+
+            User_ user = new User_(
+                    16,
+                    "Testuser",
+                    "one",
+                    4,
+                    "paulpinsolle",
+                    "fegehzgqd14"
+            );
+            personDao.create(user);
+            userDao.create(user);
+
+
+            System.out.println("User créé !");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+}
