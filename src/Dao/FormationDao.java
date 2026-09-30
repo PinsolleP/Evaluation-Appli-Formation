@@ -119,4 +119,32 @@ public class FormationDao {
         }
         return formations;
     }
+    /**
+     * Modifie une formation existante dans la base de données.
+     *
+     * @param formation formation contenant les nouvelles informations
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void update(Formation formation) throws SQLException {
+
+        String sql = """
+                UPDATE formation
+                SET name = ?, description = ?, duration = ?, type = ?, price = ?
+                WHERE id_formation = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, formation.getName());
+            statement.setString(2, formation.getDescription());
+            statement.setInt(3, formation.getDuration());
+            statement.setString(4, formation.getType());
+            statement.setDouble(5, formation.getPrice());
+            statement.setInt(6, formation.getId_formation());
+
+
+            statement.executeUpdate();
+        }
+    }
 }
