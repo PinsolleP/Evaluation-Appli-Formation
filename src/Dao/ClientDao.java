@@ -162,6 +162,17 @@ public class ClientDao {
 
             statement.executeUpdate();
         }
+        String sql_one = """
+                DELETE FROM person
+                WHERE id_person = ?
+                """;
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(5, id);
+
+            statement.executeUpdate();
+        }
     }
 }
 
