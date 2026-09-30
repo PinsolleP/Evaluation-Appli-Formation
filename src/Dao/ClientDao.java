@@ -142,5 +142,26 @@ public class ClientDao {
         }
 
     }
+    /**
+     * Supprime un client de la base de données.
+     *
+     * @param id identifiant du client à supprimer
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void delete(int id) throws SQLException {
+
+        String sql = """
+                DELETE FROM client
+                WHERE id_client = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        }
     }
+}
 
