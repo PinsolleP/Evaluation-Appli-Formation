@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 /**
- * classe permettant de configurer la connexion avec la base de données.
+ * Classe permettant de configurer la connexion avec la base de données.
  *
  */
 public class DatabaseConnection {
