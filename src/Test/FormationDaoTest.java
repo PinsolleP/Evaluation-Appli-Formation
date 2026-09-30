@@ -55,5 +55,18 @@ public class FormationDaoTest {
             e.printStackTrace();
         }
 
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            FormationDao formationDao = new FormationDao();
+            List<Formation> formations = formationDao.readAll();
+
+            for (Formation formation : formations) {
+                System.out.println(formation);
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
