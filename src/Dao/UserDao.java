@@ -111,6 +111,28 @@ public class UserDao {
         }
         return users;
     }
+    /**
+     * Modifie un utilisateur existant dans la base de données.
+     * @param user utilisateur contenant les nouvelles informations
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void update(User_ user) throws SQLException{
+
+        String sql = """
+                UPDATE user_
+                SET login = ?, password = ?
+                WHERE id_user = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getPassword());
+            statement.setInt(4, user.getId_user());
+
+            statement.executeUpdate();
+        }
 
 
 }
