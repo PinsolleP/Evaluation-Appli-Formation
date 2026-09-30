@@ -137,7 +137,10 @@ public class PersonDao {
             statement.setInt(3, person.getId_person());
 
 
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Aucune personne trouvée avec l'ID : " + person.getId_person());
+            }
         }
     }
     /**
@@ -158,7 +161,9 @@ public class PersonDao {
 
             statement.setInt(1, id);
 
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Aucune personne trouvée avec l'ID : " + id);
         }
     }
 }
