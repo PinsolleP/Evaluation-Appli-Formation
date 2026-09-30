@@ -49,6 +49,19 @@ public class PersonDaoTest {
                 SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            PersonDao personDao = new PersonDao();
+            List<Person> persons = personDao.readAll();
+
+            for (Person person : persons) {
+                System.out.println(person);
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 
