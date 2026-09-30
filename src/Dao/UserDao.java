@@ -45,5 +45,41 @@ public class UserDao {
             e.printStackTrace();
         }
     }
+    /**
+     * Recherche un utilisateur à partir de son identifiant.
+     *
+     * @param id identifiant de l'utilisateur recherché
+     * @return l'utilisateur trouvé, ou {@code null} s'il n'existe pas
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public User_ read(int id) throws SQLException {
+        String sql = """
+                SELECT id_user, login, password, id_person
+                FROM user_
+                WHERE id_user = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    return new User_(
+                            resultSet.getInt("id_person"),
+                            resultSet.getString("first_name"),
+                            resultSet.getString("last_name"),
+                            resultSet.getInt("id_user"),
+                            resultSet.getString("login"),
+                            resultSet.getString("password")
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
 
 }
