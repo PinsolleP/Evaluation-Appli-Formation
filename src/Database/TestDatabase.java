@@ -1,6 +1,4 @@
-package Dao;
-
-import Models.Person;
+package Database;
 
 import java.sql.Connection;
 import java.sql.SQLException;

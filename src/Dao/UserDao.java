@@ -1,6 +1,5 @@
 package Dao;
-import Models.Client;
-import Models.Person;
+import Database.DatabaseConnection;
 import Models.User_;
 
 import java.sql.Connection;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO permettant de gérer les Utilisateur dans la base de données.
+ * DAO permettant de gérer les Utilisateurs dans la base de données.
  *
  * <p>Cette classe assure la communication entre les objets {@link User_}
  * et la table {@code user_} de la base de données.</p>
