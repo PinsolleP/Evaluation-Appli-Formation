@@ -54,6 +54,18 @@ public class UserDaoTest {
                 SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            UserDao userDao = new UserDao();
+            List<User_> users = userDao.readAll();
+
+            for (User_ user : users) {
+                System.out.println(user);
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
