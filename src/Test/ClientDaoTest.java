@@ -56,6 +56,18 @@ public class ClientDaoTest {
                 SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            ClientDao clientDao = new ClientDao();
+            List<Client> clients = clientDao.readAll();
+
+            for (Client client : clients) {
+                System.out.println(client);
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
