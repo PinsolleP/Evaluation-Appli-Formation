@@ -84,4 +84,39 @@ public class FormationDao {
         }
         return null;
     }
+    /**
+     * Récupère toutes les formations dans la base de données.
+     *
+     * @return liste contenant toutes les formations
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public List<Formation> readAll() throws SQLException {
+
+        String sql = """
+                SELECT id_formation, name, duration, description, type, price
+                FROM formation
+                """;
+
+        List<Formation> formations = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+
+                Formation formation = new Formation(
+                        resultSet.getInt("id_formation"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("duration"),
+                        resultSet.getString("type"),
+                        resultSet.getInt("price")
+                );
+
+                formations.add(formation);
+            }
+        }
+        return formations;
+    }
 }
