@@ -23,7 +23,7 @@ public class PersonDao {
      * @param person personne à enregistrer
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public int create(Person person) throws SQLException {
+    public static int create(Person person) throws SQLException {
         String sql = """
                 INSERT INTO person(first_name, last_name)
                 VALUES (?, ?)
