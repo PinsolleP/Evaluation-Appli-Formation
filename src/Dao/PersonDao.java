@@ -143,6 +143,7 @@ public class PersonDao {
             }
         }
     }
+
     /**
      * Supprime une personne de la base de données.
      *
@@ -164,6 +165,8 @@ public class PersonDao {
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected == 0) {
                 throw new SQLException("Aucune personne trouvée avec l'ID : " + id);
+            }
         }
     }
 }
+
