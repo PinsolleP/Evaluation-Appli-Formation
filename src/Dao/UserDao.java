@@ -36,11 +36,21 @@ public class UserDao {
 
                 statement.setString(1, user.getLogin());
                 statement.setString(2, user.getPassword());
-                statement.setInt(4, id_person);
+                statement.setInt(3, id_person);
 
-                statement.executeUpdate();
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected == 0) {
+                    throw new SQLException("Échec de la création : aucune ligne insérée dans user_.");
+                }
+                try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        int id_user = resultSet.getInt(1);
+                        user.setId_user(id_user);
+                    }
+                }
             }
-        } catch (SQLException e) {
+        }catch (SQLException e) {
+            System.err.println("Erreur SQL lors de la création de l'utilisateur : " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -53,10 +63,12 @@ public class UserDao {
      */
     public User_ read(int id) throws SQLException {
         String sql = """
-                SELECT id_user, login, password, id_person
-                FROM user_
-                WHERE id_user = ?
-                """;
+            SELECT u.id_user, u.login, u.password,
+                   p.id_person, p.first_name, p.last_name
+            FROM user_ u
+            JOIN person p ON u.id_person = p.id_person
+            WHERE u.id_user = ?
+            """;
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -86,9 +98,12 @@ public class UserDao {
      */
     public  List<User_> readAll() throws SQLException {
         String sql = """
-                SELECT id_user, login , password, id_person
-                FROM user_
-                """;
+            SELECT u.id_user, u.login, u.password,
+                   p.id_person, p.first_name, p.last_name
+            FROM user_ u
+            JOIN person p ON u.id_person = p.id_person
+            """;
+
         List<User_> users = new ArrayList<>();
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -117,20 +132,33 @@ public class UserDao {
      */
     public void update(User_ user) throws SQLException{
 
-        String sql = """
-                UPDATE user_
-                SET login = ?, password = ?
-                WHERE id_user = ?
-                """;
+        String sqlPerson = """
+                    UPDATE person
+                    SET first_name = ?, last_name = ?
+                    WHERE id_person = ?
+                    """;
 
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)){
+        String sqlUser = """
+                    UPDATE user_
+                    SET login = ?, password = ?
+                    WHERE id_user = ?
+                    """;
 
-            statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
-            statement.setInt(4, user.getId_user());
+        try (Connection connection = DatabaseConnection.getConnection()){
 
-            statement.executeUpdate();
+            try (PreparedStatement psPerson = connection.prepareStatement(sqlPerson)) {
+                psPerson.setString(1, user.getFirst_name());
+                psPerson.setString(2, user.getLast_name());
+                psPerson.setInt(3, user.getId_person());
+                psPerson.executeUpdate();
+            }
+
+            try (PreparedStatement psUser = connection.prepareStatement(sqlUser)) {
+                psUser.setString(1, user.getLogin());
+                psUser.setString(2, user.getPassword());
+                psUser.setInt(3, user.getId_user());
+                psUser.executeUpdate();
+            }
         }
     }
     /**
@@ -141,28 +169,28 @@ public class UserDao {
      */
     public void delete(int id) throws SQLException {
 
-        String sql = """
-                DELETE FROM user_
-                WHERE id_client = ?
-                """;
+        String sqlUser = """
+            DELETE FROM user_
+            WHERE id_user = ?
+            """;
 
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sqlPerson = """
+            DELETE FROM person
+            WHERE id_person = ?
+            """;
 
-            statement.setInt(1, id);
+        try (Connection connection = DatabaseConnection.getConnection()){
 
-            statement.executeUpdate();
-        }
-        String sql_one = """
-                DELETE FROM person
-                WHERE id_person = ?
-                """;
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(4, id);
+             try(PreparedStatement psUser = connection.prepareStatement(sqlUser)) {
+                 psUser.setInt(1, id);
+                 psUser.executeUpdate();
+            }
 
-            statement.executeUpdate();
+             try (PreparedStatement psPerson = connection.prepareStatement(sqlPerson)) {
+                psPerson.setInt(4, id);
+                psPerson.executeUpdate();
+            }
         }
     }
 }
