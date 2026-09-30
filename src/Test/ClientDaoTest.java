@@ -42,6 +42,20 @@ public class ClientDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("\n=== TEST READ ===");
+        try {
+            ClientDao clientDao = new ClientDao();
+            Client clientTrouve = clientDao.read(1);
+
+            if (clientTrouve != null) {
+                System.out.println("client trouvé : " + clientTrouve);
+            } else {
+                System.out.println("Aucun client trouvé.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
