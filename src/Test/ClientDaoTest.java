@@ -68,6 +68,25 @@ public class ClientDaoTest {
                 SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("\n=== TEST UPDATE ===");
+        try {
+            ClientDao clientDao = new ClientDao();
+            Client client = clientDao.read(13);
+
+            if (client != null) {
+
+                client.setEmail("modifie.test@gmail.com");
+
+                clientDao.update(client);
+
+                System.out.println("client modifié : " + client);
+
+            } else {
+                System.out.println("client introuvable.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
