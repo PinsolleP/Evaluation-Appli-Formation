@@ -40,5 +40,20 @@ public class UserDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("\n=== TEST READ ===");
+        try {
+            UserDao userDao = new UserDao();
+            User_ userTrouve = userDao.read(1);
 
+            if (userTrouve != null) {
+                System.out.println("user trouvé : " + userTrouve);
+            } else {
+                System.out.println("Aucun utilisateur trouvé.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
