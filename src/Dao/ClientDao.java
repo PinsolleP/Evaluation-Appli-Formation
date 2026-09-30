@@ -55,7 +55,7 @@ public class ClientDao {
      * @return le client trouvée, ou {@code null} s'il n'existe pas
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public Person read(int id) throws SQLException {
+    public Client read(int id) throws SQLException {
         String sql = """
                 SELECT id_client, email , address, tel_number, id_person
                 FROM client
@@ -84,4 +84,37 @@ public class ClientDao {
         }
         return null;
     }
-}
+    /**
+     * Récupère tous les clients présents dans la base de données.
+     * @return liste contenant tous les clients
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public  List<Client> readAll() throws SQLException {
+        String sql = """
+                SELECT id_client, email , address, tel_number, id_person
+                FROM client
+                """;
+        List<Client> clients = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()){
+
+
+            while (resultSet.next()){
+                Client client = new Client(
+                        resultSet.getInt("id_person"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getInt("id_client"),
+                        resultSet.getString("email"),
+                        resultSet.getString("address"),
+                        resultSet.getString("tel_number")
+                    );
+                clients.add(client);
+                }
+            }
+        return clients;
+        }
+    }
+
