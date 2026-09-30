@@ -16,28 +16,37 @@ import java.util.List;
  * et la table {@code person} de la base de données.</p>
  */
 
-public class PersonDao{
+public class PersonDao {
     /**
      * Crée une nouvelle personne dans la base de données.
      *
      * @param person personne à enregistrer
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public void create(Person person) throws SQLException {
+    public int create(Person person) throws SQLException {
         String sql = """
                 INSERT INTO person(first_name, last_name)
                 VALUES (?, ?)
                 """;
 
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, person.getFirst_name());
             statement.setString(2, person.getLast_name());
 
             statement.executeUpdate();
+            try (ResultSet rs = statement.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    person.setId_person(id);
+                    return id;
+                }
+            }
+            throw new SQLException("impossible de créé person");
         }
     }
+
 
     /**
      * Recherche une personne à partir de son identifiant.
