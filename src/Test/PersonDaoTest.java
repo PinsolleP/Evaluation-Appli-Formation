@@ -62,6 +62,26 @@ public class PersonDaoTest {
                 SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\n=== TEST UPDATE ===");
+        try {
+            PersonDao personDao = new PersonDao();
+            Person person = personDao.read(16);
+
+            if (person != null) {
+
+                person.setFirst_name("Test modifié");
+
+                personDao.update(person);
+
+                System.out.println("personne modifiée : " + person);
+
+            } else {
+                System.out.println("personne introuvable.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 
