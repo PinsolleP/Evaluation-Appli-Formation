@@ -82,6 +82,17 @@ public class PersonDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\n=== TEST DELETE ===");
+        try {
+            PersonDao personDao = new PersonDao();
+
+            personDao.delete(16);
+
+            System.out.println("personne 16 supprimé.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 
