@@ -40,5 +40,20 @@ public class FormationDaoTest {
             e.printStackTrace();
         }
 
+        System.out.println("\n=== TEST READ ===");
+        try {
+            FormationDao formationDao = new FormationDao();
+            Formation formationTrouve = formationDao.read(1);
+
+            if (formationTrouve != null) {
+                System.out.println("formation trouvée : " + formationTrouve);
+            } else {
+                System.out.println("Aucune formation trouvée.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
