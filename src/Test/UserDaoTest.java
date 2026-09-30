@@ -66,6 +66,25 @@ public class UserDaoTest {
                 SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("\n=== TEST UPDATE ===");
+        try {
+            UserDao userDao = new UserDao();
+            User_ user = userDao.read(4);
+
+            if (user != null) {
+
+                user.setLogin("modifielogin");
+
+                userDao.update(user);
+
+                System.out.println("utilisateur modifié : " + user);
+
+            } else {
+                System.out.println("utilisateur introuvable.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
