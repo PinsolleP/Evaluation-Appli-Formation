@@ -147,4 +147,25 @@ public class FormationDao {
             statement.executeUpdate();
         }
     }
+    /**
+     * Supprime une formation de la base de données.
+     *
+     * @param id identifiant de la formation à supprimer
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void delete(int id) throws SQLException {
+
+        String sql = """
+                DELETE FROM formation
+                WHERE id_formation = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        }
+    }
 }
