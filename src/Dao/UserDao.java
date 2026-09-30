@@ -80,6 +80,37 @@ public class UserDao {
         }
         return null;
     }
+    /**
+     * Récupère tous les clients présents dans la base de données.
+     * @return liste contenant tous les clients
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public  List<User_> readAll() throws SQLException {
+        String sql = """
+                SELECT id_user, login , password, id_person
+                FROM user_
+                """;
+        List<User_> users = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()){
+
+
+            while (resultSet.next()){
+                User_ user = new User_(
+                        resultSet.getInt("id_person"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getInt("id_user"),
+                        resultSet.getString("login"),
+                        resultSet.getString("password")
+                );
+                users.add(user);
+            }
+        }
+        return users;
+    }
 
 
 }
