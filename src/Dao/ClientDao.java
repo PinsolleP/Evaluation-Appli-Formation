@@ -116,5 +116,31 @@ public class ClientDao {
             }
         return clients;
         }
+
+    /**
+     * Modifie un client existant dans la base de données.
+     * @param client client contenant les nouvelles informations
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void update(Client client) throws SQLException{
+
+        String sql = """
+                UPDATE client
+                SET email = ?, address = ?, tel_number = ?
+                WHERE id_client = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setString(1, client.getEmail());
+            statement.setString(2, client.getAddress());
+            statement.setString(3, client.getTel_number());
+            statement.setInt(4, client.getId_client());
+
+            statement.executeUpdate();
+        }
+
+    }
     }
 
