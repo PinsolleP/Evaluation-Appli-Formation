@@ -88,5 +88,15 @@ public class FormationDaoTest {
             e.printStackTrace();
         }
 
+        System.out.println("\n=== TEST DELETE ===");
+        try {
+            FormationDao formationDao = new FormationDao();
+
+            formationDao.delete(11);
+
+            System.out.println("formation 11 supprimée.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
