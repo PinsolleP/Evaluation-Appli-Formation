@@ -23,6 +23,11 @@ public class Formation {
         this.type = type;
         this.price = price;
     }
+
+    public Formation(int id_formation, String name) {
+        this.id_formation = id_formation;
+        this.name = name;
+    }
     /**
      * Getter et setter
      */
