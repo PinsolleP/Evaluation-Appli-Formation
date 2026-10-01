@@ -10,6 +10,7 @@ import Models.User_;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Classe permettant de tester les opérations CRUD de {@link OrderDao}.
@@ -55,6 +56,19 @@ public class OrderDaoTest {
                 System.out.println("commande trouvée : " + orderTrouve);
             } else {
                 System.out.println("Aucune commande trouvée.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+            List<Order_> orders = orderDao.readAll();
+
+            for (Order_ order : orders) {
+                System.out.println(order);
             }
         } catch (
                 SQLException e) {
