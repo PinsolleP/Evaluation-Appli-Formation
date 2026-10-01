@@ -50,6 +50,13 @@ public class User_ extends Person{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", idUser=" + id_user
+                ;
+    }
 }
 
 
