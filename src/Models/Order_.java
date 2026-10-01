@@ -89,4 +89,15 @@ public class Order_ {
         }
         return total;
     }
+    @Override
+    public String toString(){
+        return "Order{" +
+                "id_order=" + id_order +
+                ", quantity=" + quantity +
+                ", date=" + date +
+                ", formation=" + formation.getName() +
+                ", client=" + client.getLast_name() +
+                ", user=" + user.getLast_name() +
+                '}';
+    }
 }
