@@ -1,7 +1,9 @@
 package User_interface;
 
 import Dao.PersonDao;
+import Dao.UserDao;
 import Models.Person;
+import Models.User_;
 
 import java.sql.SQLException;
 import java.util.InputMismatchException;
@@ -13,16 +15,13 @@ public class UserChoice {
     public static boolean controlName() throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Entrez votre nom: ");
-        String name = scanner.nextLine();
-        System.out.print("Entrez votre prénom: ");
-        String firstname = scanner.nextLine();
+        System.out.print("Entrez votre login: ");
+        String login = scanner.nextLine();
 
-            List<Person> allpersons = PersonDao.readAll();
+            List<User_> allusers = UserDao.readAll();
 
-            return allpersons.stream()
-                    .anyMatch(person -> person.getLast_name().equalsIgnoreCase(name) &&
-                            person.getFirst_name().equalsIgnoreCase(firstname));
+            return allusers.stream()
+                    .anyMatch(user -> user.getLogin().equalsIgnoreCase(login));
     }
     public static void displayChoice(){
 
