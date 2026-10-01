@@ -143,8 +143,10 @@ public class FormationDao {
             statement.setDouble(5, formation.getPrice());
             statement.setInt(6, formation.getId_formation());
 
-
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Aucune formation trouvée avec l'ID : " + formation.getId_formation());
+            }
         }
     }
     /**
@@ -165,7 +167,9 @@ public class FormationDao {
 
             statement.setInt(1, id);
 
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Aucune formation trouvée avec l'ID : " + id);
         }
     }
 }
