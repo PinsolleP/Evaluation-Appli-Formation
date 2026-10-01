@@ -88,7 +88,7 @@ public class PersonDao {
      * @return liste contenant toutes les personnes
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public List<Person> readAll() throws SQLException {
+    public static List<Person> readAll() throws SQLException {
 
         String sql = """
                 SELECT id_person, first_name, last_name
