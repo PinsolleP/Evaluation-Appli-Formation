@@ -19,6 +19,11 @@ public class User_ extends Person{
         this.login = login;
         this.password = password;
     }
+
+    public User_( int id_user, int id_person, String first_name, String last_name) {
+        super(id_person, first_name, last_name);
+        this.id_user = id_user;
+    }
     /**
      * Getter et setter
      */
