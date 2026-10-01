@@ -45,5 +45,20 @@ public class OrderDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\n=== TEST READ ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+            Order_ orderTrouve = orderDao.read(1);
+
+            if (orderTrouve != null) {
+                System.out.println("commande trouvée : " + orderTrouve);
+            } else {
+                System.out.println("Aucune commande trouvée.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
