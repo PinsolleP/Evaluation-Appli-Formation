@@ -4,34 +4,27 @@ import Dao.PersonDao;
 import Models.Person;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class UserChoice {
 
-    public static void control_name() throws SQLException {
+    public static boolean controlName() throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please enter your name: ");
+        System.out.print("Entrez votre nom: ");
         String name = scanner.nextLine();
+        System.out.print("Entrez votre prénom: ");
+        String firstname = scanner.nextLine();
 
-        try {
             List<Person> allpersons = PersonDao.readAll();
 
-            boolean namefound = allpersons.stream()
-                    .anyMatch(person -> person.getLast_name().equalsIgnoreCase(name));
-
-            if (namefound) {
-                System.out.println("vous êtes déjà inscrit");
-            } else {
-                System.out.println("vous n'êtes pas encore inscrit");
-            }
-        } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
-        }
-        scanner.close();
+            return allpersons.stream()
+                    .anyMatch(person -> person.getLast_name().equalsIgnoreCase(name) &&
+                            person.getFirst_name().equalsIgnoreCase(firstname));
     }
-    public void display_choice(){
+    public static void displayChoice(){
 
         Scanner scanner = new Scanner(System.in);
         int choix = 0;
@@ -41,30 +34,30 @@ public class UserChoice {
             System.out.println("2. Afficher toutes les formations contenant un mot clé.");
             System.out.println("3. Afficher toutes les formations en présentiel ou distanciel.");
             System.out.println("4. Quitter le programme.");
-            System.out.println("Votre choix (1-4) :";
+            System.out.println("Votre choix (1-4) :");
 
-            if (scanner.hasNextInt()){
+            try {
                 choix = scanner.nextInt();
                 scanner.nextLine();
 
-                switch (choix){
-                    case 1 :
+                switch (choix) {
+                    case 1:
                         break;
-                    case 2 :
+                    case 2:
                         break;
-                    case 3 :
+                    case 3:
                         break;
-                    case 4 :
+                    case 4:
                         System.out.println("Au revoir");
+                        break;
                     default:
                         System.out.println("Option invalide. Veuillez saisir entre 1 et 4.");
                 }
-            }else{
-                System.out.println("Erreur : Veuillez entrer un chiffre.");
+            } catch (InputMismatchException e){
+                System.out.println("Entrée invalide. Veuillez saisir un nombre.");
             }
         }while (choix != 4);
+
         scanner.close();
-
     }
-
 }
