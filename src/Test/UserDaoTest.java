@@ -24,18 +24,17 @@ public class UserDaoTest {
             UserDao userDao = new UserDao();
 
             User_ user = new User_(
-                    16,
+                    0,
                     "Testuser",
                     "one",
-                    4,
+                    0,
                     "paulpinsolle",
                     "fegehzgqd14"
             );
             personDao.create(user);
             userDao.create(user);
 
-
-            System.out.println("User créé !");
+            System.out.println("Utilisateur créé avec ID Person = "+ user.getId_person() + " et ID User = " + user.getId_user());
 
         } catch (SQLException e) {
             e.printStackTrace();
