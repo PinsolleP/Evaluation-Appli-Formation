@@ -25,6 +25,19 @@
         test
         User_interface
 
+# Réalisation des tests : 
+    Les test pour les CRUD de tous les Dao ne sont pas automatisés.
+
+    Voici dans quel ordres les réaliser :
+        1 Create
+        2 Read
+        3 ReadAll
+        4 Update
+        5 Delete
+    
+    Pour chacun des fichiers , il est impoortant de les jouer uniquement un par un.
+    Nous mettrons donc en commentaire tous les autres avant exécution.
+
 # Enoncé de l'exercice
     Dans un premier temps, l’application doit permettre à tous les utilisateurs non connectés d’afficher 
 toutes les formations disponibles, d’afficher toutes les formations contenant un mot clé, toutes les 
