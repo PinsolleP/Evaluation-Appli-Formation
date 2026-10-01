@@ -204,4 +204,28 @@ public class OrderDao {
             }
         }
     }
+    /**
+     * Supprime une commande de la base de données.
+     *
+     * @param id identifiant de la commande à supprimer
+     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     */
+    public void delete(int id) throws SQLException {
+
+        String sql = """
+                DELETE FROM order_
+                WHERE id_order = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Aucune commande trouvée avec l'ID : " + id);
+            }
+        }
+    }
 }
