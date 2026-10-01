@@ -2,10 +2,7 @@ package Dao;
 import Database.DatabaseConnection;
 import Models.Client;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class ClientDao {
                     """;
 
             try (Connection connection = DatabaseConnection.getConnection();
-                 PreparedStatement statement = connection.prepareStatement(sql)) {
+                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
                 statement.setString(1, client.getEmail());
                 statement.setString(2, client.getAddress());
@@ -61,13 +58,12 @@ public class ClientDao {
      * Recherche un client à partir de son identifiant.
      *
      * @param id identifiant du client recherché
-     * @return le client trouvée, ou {@code null} s'il n'existe pas
+     * @return le client trouvé, ou {@code null} s'il n'existe pas
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
     public Client read(int id) throws SQLException {
         String sql = """
-            
-                SELECT c.client, c.email, c.address, c.tel_number
+            SELECT c.client, c.email, c.address, c.tel_number
                    p.id_person, p.first_name, p.last_name
             FROM client c
             JOIN person p ON c.id_person = p.id_person
