@@ -1,7 +1,9 @@
 package User_interface;
 
+import Dao.FormationDao;
 import Dao.PersonDao;
 import Dao.UserDao;
+import Models.Formation;
 import Models.Person;
 import Models.User_;
 
@@ -41,6 +43,10 @@ public class UserChoice {
 
                 switch (choix) {
                     case 1:
+                        List<Formation> formations = FormationDao.readAll();
+                        for (Formation formation : formations){
+                            System.out.println(formation.toString());
+                        }
                         break;
                     case 2:
                         break;
@@ -54,6 +60,8 @@ public class UserChoice {
                 }
             } catch (InputMismatchException e){
                 System.out.println("Entrée invalide. Veuillez saisir un nombre.");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }while (choix != 4);
 
