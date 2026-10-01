@@ -22,6 +22,85 @@ public class OrderDaoTest {
         *
         * @param args arguments de la ligne de commande
         */
+        TestCreate();
+
+        TestRead();
+
+        TestReadAll();
+
+        TestUpdate();
+
+        TestDelete();
+    }
+
+    private static void TestDelete() {
+        System.out.println("\n=== TEST DELETE ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+
+            orderDao.delete(1);
+
+            System.out.println("commande 1 supprimée.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestUpdate() {
+        System.out.println("\n=== TEST UPDATE ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+            Order_ order = orderDao.read(1);
+
+            if (order != null) {
+
+                order.setQuantity(8);
+
+                orderDao.update(order);
+
+                System.out.println("commande modifiée : " + order);
+
+            } else {
+                System.out.println("commande introuvable.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestReadAll() {
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+            List<Order_> orders = orderDao.readAll();
+
+            for (Order_ order : orders) {
+                System.out.println(order);
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestRead() {
+        System.out.println("\n=== TEST READ ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+            Order_ orderTrouve = orderDao.read(1);
+
+            if (orderTrouve != null) {
+                System.out.println("commande trouvée : " + orderTrouve);
+            } else {
+                System.out.println("Aucune commande trouvée.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestCreate() {
         System.out.println("=== TEST CREATE ===");
         try {
             OrderDao orderDao = new OrderDao();
@@ -43,65 +122,6 @@ public class OrderDaoTest {
 
             System.out.println("order créé avec l'ID " + order.getId_order());
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("\n=== TEST READ ===");
-        try {
-            OrderDao orderDao = new OrderDao();
-            Order_ orderTrouve = orderDao.read(1);
-
-            if (orderTrouve != null) {
-                System.out.println("commande trouvée : " + orderTrouve);
-            } else {
-                System.out.println("Aucune commande trouvée.");
-            }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("\n=== TEST READALL ===");
-        try {
-            OrderDao orderDao = new OrderDao();
-            List<Order_> orders = orderDao.readAll();
-
-            for (Order_ order : orders) {
-                System.out.println(order);
-            }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("\n=== TEST UPDATE ===");
-        try {
-            OrderDao orderDao = new OrderDao();
-            Order_ order = orderDao.read(1);
-
-            if (order != null) {
-
-                order.setQuantity(8);
-
-                orderDao.update(order);
-
-                System.out.println("commande modifiée : " + order);
-
-            } else {
-                System.out.println("commande introuvable.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("\n=== TEST DELETE ===");
-        try {
-            OrderDao orderDao = new OrderDao();
-
-            orderDao.delete(1);
-
-            System.out.println("commande 1 supprimée.");
         } catch (SQLException e) {
             e.printStackTrace();
         }

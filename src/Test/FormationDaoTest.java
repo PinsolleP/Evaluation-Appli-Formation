@@ -19,55 +19,32 @@ public class FormationDaoTest {
      * @param args arguments de la ligne de commande
      */
     public static void main(String[] args) {
-        System.out.println("=== TEST CREATE ===");
+
+        TestCreate();
+
+        TestRead();
+
+        TestReadAll();
+
+        TestUpdate();
+
+        TestDelete();
+    }
+
+    private static void TestDelete() {
+        System.out.println("\n=== TEST DELETE ===");
         try {
             FormationDao formationDao = new FormationDao();
 
-            Formation formation = new Formation(
-                    0,
-                    "Test",
-                    "description",
-                    10,
-                    "presentiel",
-                    100.00
-            );
+            formationDao.delete(11);
 
-            formationDao.create(formation);
-
-            System.out.println("Formation créé avec l'ID " + formation.getId_formation());
-
+            System.out.println("formation 11 supprimée.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-        System.out.println("\n=== TEST READ ===");
-        try {
-            FormationDao formationDao = new FormationDao();
-            Formation formationTrouve = formationDao.read(1);
-
-            if (formationTrouve != null) {
-                System.out.println("formation trouvée : " + formationTrouve);
-            } else {
-                System.out.println("Aucune formation trouvée.");
-            }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("\n=== TEST READALL ===");
-        try {
-            FormationDao formationDao = new FormationDao();
-            List<Formation> formations = formationDao.readAll();
-
-            for (Formation formation : formations) {
-                System.out.println(formation);
-            }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
-
+    private static void TestUpdate() {
         System.out.println("\n=== TEST UPDATE ===");
         try {
             FormationDao formationDao = new FormationDao();
@@ -87,14 +64,58 @@ public class FormationDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-        System.out.println("\n=== TEST DELETE ===");
+    private static void TestReadAll() {
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            FormationDao formationDao = new FormationDao();
+            List<Formation> formations = formationDao.readAll();
+
+            for (Formation formation : formations) {
+                System.out.println(formation);
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestRead() {
+        System.out.println("\n=== TEST READ ===");
+        try {
+            FormationDao formationDao = new FormationDao();
+            Formation formationTrouve = formationDao.read(1);
+
+            if (formationTrouve != null) {
+                System.out.println("formation trouvée : " + formationTrouve);
+            } else {
+                System.out.println("Aucune formation trouvée.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestCreate() {
+        System.out.println("=== TEST CREATE ===");
         try {
             FormationDao formationDao = new FormationDao();
 
-            formationDao.delete(11);
+            Formation formation = new Formation(
+                    0,
+                    "Test",
+                    "description",
+                    10,
+                    "presentiel",
+                    100.00
+            );
 
-            System.out.println("formation 11 supprimée.");
+            formationDao.create(formation);
+
+            System.out.println("Formation créé avec l'ID " + formation.getId_formation());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
