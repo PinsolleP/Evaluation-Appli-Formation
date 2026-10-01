@@ -82,4 +82,16 @@ public class Formation {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Formation{" +
+                "id_formation=" + id_formation +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", duration=" + duration +
+                ", type='" + type + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
