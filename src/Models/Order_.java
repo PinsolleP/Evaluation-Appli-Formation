@@ -62,6 +62,23 @@ public class Order_ {
     public void setFormation(Formation formation) {
         this.formation = formation;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public User_ getUser() {
+        return user;
+    }
+
+    public void setUser(User_ user) {
+        this.user = user;
+    }
+
     /**
      * Méthode calul du total pour une commande passée de (quantity) formations
      */
