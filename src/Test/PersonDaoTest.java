@@ -18,13 +18,13 @@ public class PersonDaoTest {
      */
     public static void main(String[] args) {
 
-        //TestCreate();
+        TestCreate();
 
-        //TestRead();
+        TestRead();
 
-        //TestReadAll();
+        TestReadAll();
 
-        //TestUpdate();
+        TestUpdate();
 
         TestDelete();
 
@@ -37,7 +37,7 @@ public class PersonDaoTest {
 
             personDao.delete(18);
 
-            System.out.println("personne 18 supprimé.");
+            System.out.println("personne 19 supprimé.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class PersonDaoTest {
         System.out.println("\n=== TEST UPDATE ===");
         try {
             PersonDao personDao = new PersonDao();
-            Person person = personDao.read(18);
+            Person person = personDao.read(19);
 
             if (person != null) {
 
@@ -103,7 +103,7 @@ public class PersonDaoTest {
             PersonDao personDao = new PersonDao();
 
             Person person = new Person(
-                    18,
+                    19,
                     "Test",
                     "one"
             );
