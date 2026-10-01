@@ -96,7 +96,7 @@ public class UserDao {
      * @return liste contenant tous les clients
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public  List<User_> readAll() throws SQLException {
+    public  static List<User_> readAll() throws SQLException {
         String sql = """
             SELECT u.id_user, u.login, u.password,
                    p.id_person, p.first_name, p.last_name
