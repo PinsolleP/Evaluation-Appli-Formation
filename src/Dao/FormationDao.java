@@ -49,6 +49,7 @@ public class FormationDao {
             throw new SQLException("impossible de créé une formation");
         }
     }
+
     /**
      * Recherche une formation à partir de son identifiant.
      *
@@ -84,6 +85,7 @@ public class FormationDao {
         }
         return null;
     }
+
     /**
      * Récupère toutes les formations dans la base de données.
      *
@@ -119,6 +121,7 @@ public class FormationDao {
         }
         return formations;
     }
+
     /**
      * Modifie une formation existante dans la base de données.
      *
@@ -149,6 +152,7 @@ public class FormationDao {
             }
         }
     }
+
     /**
      * Supprime une formation de la base de données.
      *
@@ -170,6 +174,7 @@ public class FormationDao {
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected == 0) {
                 throw new SQLException("Aucune formation trouvée avec l'ID : " + id);
+            }
         }
     }
 }
