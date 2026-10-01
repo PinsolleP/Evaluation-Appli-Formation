@@ -82,4 +82,13 @@ public class Client extends Person{
         }
         this.tel_number = tel_number;
     }
+    @Override
+    public String toString(){
+        return super.toString() +
+                ", idClient=" + id_client +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + tel_number + '\'' +
+                '}';
+    }
 }
