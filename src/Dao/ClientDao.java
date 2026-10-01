@@ -32,8 +32,7 @@ public class ClientDao {
                     VALUES (?, ?, ?, ?)
                     """;
 
-            try (Connection connection = DatabaseConnection.getConnection()
-                 ;
+            try (Connection connection = DatabaseConnection.getConnection();
                  PreparedStatement statement = connection.prepareStatement(sql)) {
 
                 statement.setString(1, client.getEmail());
@@ -41,9 +40,19 @@ public class ClientDao {
                 statement.setString(3, client.getTel_number());
                 statement.setInt(4, id_person);
 
-                statement.executeUpdate();
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected == 0) {
+                    throw new SQLException("Échec de la création : aucune ligne insérée dans client.");
+                }
+                try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        int id_client = resultSet.getInt(1);
+                        client.setId_client(id_client);
+                    }
+                }
             }
         } catch (SQLException e) {
+            System.err.println("Erreur SQL lors de la création du client : " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -57,10 +66,13 @@ public class ClientDao {
      */
     public Client read(int id) throws SQLException {
         String sql = """
-                SELECT id_client, email , address, tel_number, id_person
-                FROM client
-                WHERE id_client = ?
-                """;
+            
+                SELECT c.client, c.email, c.address, c.tel_number
+                   p.id_person, p.first_name, p.last_name
+            FROM client c
+            JOIN person p ON c.id_person = p.id_person
+            WHERE c.id_client = ?
+            """;
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -86,20 +98,24 @@ public class ClientDao {
     }
     /**
      * Récupère tous les clients présents dans la base de données.
+     *
      * @return liste contenant tous les clients
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
     public  List<Client> readAll() throws SQLException {
         String sql = """
-                SELECT id_client, email , address, tel_number, id_person
-                FROM client
-                """;
+            SELECT c.client, c.email, c.address, c.tel_number
+                   p.id_person, p.first_name, p.last_name
+            FROM client 
+            JOIN person p ON c.id_person = p.id_person
+            WHERE c.id_client = ?
+            """;
+
         List<Client> clients = new ArrayList<>();
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery()){
-
+             ResultSet resultSet = statement.executeQuery()){
 
             while (resultSet.next()){
                 Client client = new Client(
@@ -119,29 +135,43 @@ public class ClientDao {
 
     /**
      * Modifie un client existant dans la base de données.
+     *
      * @param client client contenant les nouvelles informations
-     * @throws SQLException si une erreur survient lors de l'accès à la base de données
+     * @throws SQLException si une erreur survient lors de l'accès à la base  de données
      */
     public void update(Client client) throws SQLException{
 
-        String sql = """
+        String sqlPerson = """
+                UPDATE person
+                SET first_name = ?, last_name = ?
+                WHERE id_person = ?
+                """;
+
+        String sqlClient = """
                 UPDATE client
                 SET email = ?, address = ?, tel_number = ?
                 WHERE id_client = ?
                 """;
 
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)){
+        try (Connection connection = DatabaseConnection.getConnection()){
 
-            statement.setString(1, client.getEmail());
-            statement.setString(2, client.getAddress());
-            statement.setString(3, client.getTel_number());
-            statement.setInt(4, client.getId_client());
+            try (PreparedStatement psPerson = connection.prepareStatement(sqlPerson)) {
+                psPerson.setString(1, client.getFirst_name());
+                psPerson.setString(2, client.getLast_name());
+                psPerson.setInt(3, client.getId_person());
+                psPerson.executeUpdate();
+            }
 
-            statement.executeUpdate();
+            try (PreparedStatement psUser = connection.prepareStatement(sqlClient)) {
+                psUser.setString(1, client.getEmail());
+                psUser.setString(2, client.getAddress());
+                psUser.setString(3, client.getTel_number());
+                psUser.setInt(4, client.getId_client());
+                psUser.executeUpdate();
+            }
         }
-
     }
+
     /**
      * Supprime un client de la base de données.
      *
@@ -150,29 +180,31 @@ public class ClientDao {
      */
     public void delete(int id) throws SQLException {
 
-        String sql = """
-                DELETE FROM client
-                WHERE id_client = ?
-                """;
+        String sqlClient = """
+            DELETE FROM client
+            WHERE id_client = ?
+            """;
 
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sqlPerson = """
+            DELETE FROM person
+            WHERE id_person = ?
+            """;
 
-            statement.setInt(1, id);
+        try (Connection connection = DatabaseConnection.getConnection()){
 
-            statement.executeUpdate();
-        }
-        String sql_one = """
-                DELETE FROM person
-                WHERE id_person = ?
-                """;
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(5, id);
+            try(PreparedStatement psUser = connection.prepareStatement(sqlClient)) {
+                psUser.setInt(1, id);
+                psUser.executeUpdate();
+            }
 
-            statement.executeUpdate();
+            try (PreparedStatement psPerson = connection.prepareStatement(sqlPerson)) {
+                psPerson.setInt(4, id);
+                psPerson.executeUpdate();
+            }
         }
     }
-}
+    }
+
+
 
