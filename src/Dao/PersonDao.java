@@ -136,7 +136,6 @@ public class PersonDao {
             statement.setString(2, person.getLast_name());
             statement.setInt(3, person.getId_person());
 
-
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected == 0) {
                 throw new SQLException("Aucune personne trouvée avec l'ID : " + person.getId_person());
