@@ -74,5 +74,25 @@ public class OrderDaoTest {
                 SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\n=== TEST UPDATE ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+            Order_ order = orderDao.read(11);
+
+            if (order != null) {
+
+                order.setQuantity(8);
+
+                orderDao.update(order);
+
+                System.out.println("commande modifiée : " + order);
+
+            } else {
+                System.out.println("commande introuvable.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
