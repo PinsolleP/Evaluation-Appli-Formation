@@ -37,7 +37,6 @@ public class ClientDaoTest {
 
             clientDao.create(client);
 
-
             System.out.println("Client créé avec ID Person = "+ client.getId_person() + " et ID Client = " + client.getId_client());
 
         } catch (SQLException e) {
