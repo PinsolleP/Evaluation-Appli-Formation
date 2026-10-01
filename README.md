@@ -12,7 +12,18 @@
     Exécuter le programme
 
 # Structure du projet
-
+    Un dossier Conception 
+        BDD
+        Diagrammes
+        MCD
+    
+    Un dossier src
+        Business
+        Dao
+        Database
+        Models
+        test
+        User_interface
 
 # Enoncé de l'exercice
     Dans un premier temps, l’application doit permettre à tous les utilisateurs non connectés d’afficher 
