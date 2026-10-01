@@ -21,6 +21,11 @@ public class Client extends Person{
         this.address = address;
         this.tel_number = tel_number;
     }
+
+    public Client( int id_client, int id_person, String first_name, String last_name) {
+        super(id_person, first_name, last_name);
+        this.id_client = id_client;
+    }
     /**
      * Getter et setter
      */
