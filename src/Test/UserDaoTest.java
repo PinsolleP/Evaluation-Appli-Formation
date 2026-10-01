@@ -18,53 +18,34 @@ public class UserDaoTest {
      * @param args arguments de la ligne de commande
      */
     public static void main(String[] args) {
-        System.out.println("=== TEST CREATE ===");
+
+        TestCreate();
+
+        TestRead();
+
+        TestReadAll();
+
+        TestUpdate();
+
+        TestDelete();
+    }
+
+    private static void TestDelete() {
+        System.out.println("\n=== TEST DELETE ===");
         try {
             PersonDao personDao = new PersonDao();
             UserDao userDao = new UserDao();
 
-            User_ user = new User_(
-                    0,
-                    "Testuser",
-                    "one",
-                    0,
-                    "paulpinsolle",
-                    "fegehzgqd14"
-            );
-            personDao.create(user);
-            userDao.create(user);
+            userDao.delete(4);
+            personDao.delete(16);
 
-            System.out.println("Utilisateur créé avec ID Person = "+ user.getId_person() + " et ID User = " + user.getId_user());
-
+            System.out.println("utilisateur 4 supprimé.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("\n=== TEST READ ===");
-        try {
-            UserDao userDao = new UserDao();
-            User_ userTrouve = userDao.read(1);
+    }
 
-            if (userTrouve != null) {
-                System.out.println("user trouvé : " + userTrouve);
-            } else {
-                System.out.println("Aucun utilisateur trouvé.");
-            }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println("\n=== TEST READALL ===");
-        try {
-            UserDao userDao = new UserDao();
-            List<User_> users = userDao.readAll();
-
-            for (User_ user : users) {
-                System.out.println(user);
-            }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
+    private static void TestUpdate() {
         System.out.println("\n=== TEST UPDATE ===");
         try {
             UserDao userDao = new UserDao();
@@ -84,15 +65,59 @@ public class UserDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("\n=== TEST DELETE ===");
+    }
+
+    private static void TestReadAll() {
+        System.out.println("\n=== TEST READALL ===");
+        try {
+            UserDao userDao = new UserDao();
+            List<User_> users = userDao.readAll();
+
+            for (User_ user : users) {
+                System.out.println(user);
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestRead() {
+        System.out.println("\n=== TEST READ ===");
+        try {
+            UserDao userDao = new UserDao();
+            User_ userTrouve = userDao.read(1);
+
+            if (userTrouve != null) {
+                System.out.println("user trouvé : " + userTrouve);
+            } else {
+                System.out.println("Aucun utilisateur trouvé.");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void TestCreate() {
+        System.out.println("=== TEST CREATE ===");
         try {
             PersonDao personDao = new PersonDao();
             UserDao userDao = new UserDao();
 
-            userDao.delete(4);
-            personDao.delete(16);
+            User_ user = new User_(
+                    0,
+                    "Testuser",
+                    "one",
+                    0,
+                    "paulpinsolle",
+                    "fegehzgqd14"
+            );
+            personDao.create(user);
+            userDao.create(user);
 
-            System.out.println("utilisateur 4 supprimé.");
+            System.out.println("Utilisateur créé avec ID Person = "+ user.getId_person() + " et ID User = " + user.getId_user());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
