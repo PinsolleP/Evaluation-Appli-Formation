@@ -92,7 +92,7 @@ public class FormationDao {
      * @return liste contenant toutes les formations
      * @throws SQLException si une erreur survient lors de l'accès à la base de données
      */
-    public List<Formation> readAll() throws SQLException {
+    public static List<Formation> readAll() throws SQLException {
 
         String sql = """
                 SELECT id_formation, name, duration, description, type, price
