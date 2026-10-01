@@ -78,7 +78,7 @@ public class OrderDaoTest {
         System.out.println("\n=== TEST UPDATE ===");
         try {
             OrderDao orderDao = new OrderDao();
-            Order_ order = orderDao.read(11);
+            Order_ order = orderDao.read(1);
 
             if (order != null) {
 
@@ -94,5 +94,17 @@ public class OrderDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\n=== TEST DELETE ===");
+        try {
+            OrderDao orderDao = new OrderDao();
+
+            orderDao.delete(1);
+
+            System.out.println("commande 1 supprimée.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
+
