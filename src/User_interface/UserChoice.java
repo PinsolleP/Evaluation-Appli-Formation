@@ -31,6 +31,40 @@ public class UserChoice {
         }
         scanner.close();
     }
+    public void display_choice(){
 
+        Scanner scanner = new Scanner(System.in);
+        int choix = 0;
+
+        do{
+            System.out.println("1. Afficher toutes les formations disponibles.");
+            System.out.println("2. Afficher toutes les formations contenant un mot clé.");
+            System.out.println("3. Afficher toutes les formations en présentiel ou distanciel.");
+            System.out.println("4. Quitter le programme.");
+            System.out.println("Votre choix (1-4) :";
+
+            if (scanner.hasNextInt()){
+                choix = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choix){
+                    case 1 :
+                        break;
+                    case 2 :
+                        break;
+                    case 3 :
+                        break;
+                    case 4 :
+                        System.out.println("Au revoir");
+                    default:
+                        System.out.println("Option invalide. Veuillez saisir entre 1 et 4.");
+                }
+            }else{
+                System.out.println("Erreur : Veuillez entrer un chiffre.");
+            }
+        }while (choix != 4);
+        scanner.close();
+
+    }
 
 }
