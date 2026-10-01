@@ -25,19 +25,20 @@ public class ClientDaoTest {
             ClientDao clientDao = new ClientDao();
 
             Client client = new Client(
-                    16,
+                    0,
                     "Testclient",
                     "one",
-                    13,
+                    0,
                     "test.client@gmail.com",
                     "12 rue du petit velo 64100 Bayonne",
                     "0684579620"
             );
             personDao.create(client);
+
             clientDao.create(client);
 
 
-            System.out.println("Client créé !");
+            System.out.println("Client créé avec ID Person = "+ client.getId_person() + " et ID Client = " + client.getId_client());
 
         } catch (SQLException e) {
             e.printStackTrace();
