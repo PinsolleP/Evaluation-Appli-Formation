@@ -24,7 +24,7 @@ public class FormationDaoTest {
             FormationDao formationDao = new FormationDao();
 
             Formation formation = new Formation(
-                    11,
+                    0,
                     "Test",
                     "description",
                     10,
@@ -34,7 +34,7 @@ public class FormationDaoTest {
 
             formationDao.create(formation);
 
-            System.out.println("Formation créé !");
+            System.out.println("Formation créé avec l'ID " + formation.getId_formation());
 
         } catch (SQLException e) {
             e.printStackTrace();
