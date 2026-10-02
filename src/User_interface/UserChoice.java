@@ -1,16 +1,16 @@
 package User_interface;
 
 import Dao.FormationDao;
-import Dao.PersonDao;
 import Dao.UserDao;
 import Models.Formation;
-import Models.Person;
 import Models.User_;
 
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UserChoice {
 
@@ -31,6 +31,7 @@ public class UserChoice {
         int choix = 0;
 
         do{
+            System.out.println("==========SELECTION==========");
             System.out.println("1. Afficher toutes les formations disponibles.");
             System.out.println("2. Afficher toutes les formations contenant un mot clé.");
             System.out.println("3. Afficher toutes les formations en présentiel ou distanciel.");
@@ -38,8 +39,7 @@ public class UserChoice {
             System.out.println("Votre choix (1-4) :");
 
             try {
-                choix = scanner.nextInt();
-                scanner.nextLine();
+                choix = Integer.parseInt(scanner.nextLine().trim());
 
                 switch (choix) {
                     case 1:
@@ -49,6 +49,15 @@ public class UserChoice {
                         }
                         break;
                     case 2:
+                        List<Formation> resultats = SearchByWord();
+                        if (resultats.isEmpty()){
+                            System.out.println("Aucune formation trouvées avec ce mot clé.");
+                        }else {
+                            System.out.println("Formation Trouvées :");
+                        }
+                        for (Formation formation : resultats){
+                            System.out.println(formation.toString());
+                        }
                         break;
                     case 3:
                         break;
@@ -67,4 +76,23 @@ public class UserChoice {
 
         scanner.close();
     }
+
+    public static List<Formation> SearchByWord() throws SQLException {
+
+        System.out.println("Veuillez saisir votre mot clé :");
+        try (Scanner scanner = new Scanner(System.in)) {
+            String word = scanner.nextLine().trim().toLowerCase();
+
+            List<Formation> formations = FormationDao.readAll();
+
+            return formations.stream()
+                    .filter(f ->
+                            (f.getName() != null && f.getName().toLowerCase().contains(word)) ||
+                                    (f.getDescription() != null && f.getDescription().toLowerCase().contains(word)) ||
+                                    (f.getType() != null && f.getType().toLowerCase().contains(word))
+                    )
+                    .collect(Collectors.toList());
+        }
+    }
 }
+
